@@ -1,0 +1,18 @@
+{
+  "city": "Katowice",
+  "district": {
+    "districtName": "Ochojec",
+    "districtId": 1
+  },
+  "adress": "Krótka 32",
+  "formation": {
+    "formationDescription": "descr",
+    "district": {
+      "districtName": "Ochojec",
+      "districtId": 1
+    },
+    "formationId": 1
+  },
+  "radonConcentration": 442.0,
+  "error_Rn": 12.0
+}
