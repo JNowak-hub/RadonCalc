@@ -12,6 +12,7 @@ import converter.districtConverter.DistrictJsonConverter;
 import converter.districtConverter.DistrictStoreJsonConverter;
 import pl.nowak.radon.base.models.district.District;
 import pl.nowak.radon.base.models.district.DistrictStore;
+import pl.nowak.radon.base.models.district.DistrictTableModel;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -41,13 +42,17 @@ public class addDistrictWindow {
 	private JFrame frame;
 	private JTextField districtNameText;
 	private JTextField txtEnterDistrictId;
-	private DistrictStore store = new DistrictStore();
+	private DistrictStore store;
 	private JTable tableDistricts;
+	private JFileChooser chooser;
 
 	/**
 	 * Create the application.
 	 */
 	public addDistrictWindow() {
+		chooser = new JFileChooser();
+		chooser.showOpenDialog(frame);
+		store = (DistrictStore) new DistrictStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
 		initialize();
 	}
 
@@ -152,7 +157,8 @@ public class addDistrictWindow {
 		
 		
 		Object[] columnsNames = {"District ID", "District Name"};
-		tableDistricts = new JTable();
+		DistrictTableModel model = new DistrictTableModel(store);
+		tableDistricts = new JTable(model.GetDistrictData(store), model.getColumnsNames());
 		tableDistricts.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(0, 255, 0), new Color(0, 255, 255), Color.CYAN, Color.MAGENTA));
 		tableDistricts.setFillsViewportHeight(true);
 		tableDistricts.setCellSelectionEnabled(true);

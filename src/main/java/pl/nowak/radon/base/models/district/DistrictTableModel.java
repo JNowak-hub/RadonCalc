@@ -13,12 +13,12 @@ public class DistrictTableModel extends AbstractTableModel {
 	private DistrictStore store;
 		
 	
-	public Object[][] GetDistrictData(String jsonFilename){
-		DistrictStore store = (DistrictStore) new DistrictStoreJsonConverter(jsonFilename).fromJson().get();
-		Object[][] rowData = new Object[columnsNames.length][store.getDistricts().size()];
+	public Object[][] GetDistrictData(DistrictStore store){
+		this.store = store;
+		Object[][] rowData = new Object[store.getDistricts().size()][columnsNames.length];
 		for(int i = 0 ; i < store.getDistricts().size(); i++) {
-			rowData[1][i] = store.getDistricts().get(i).getDistrictName();
-			rowData[0][i] = i;
+			rowData[i][1] = store.getDistricts().get(i).getDistrictName();
+			rowData[i][0] = i;
 		}
 		
 		return rowData;
