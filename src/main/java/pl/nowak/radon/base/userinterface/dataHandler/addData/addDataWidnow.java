@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class addDataWidnow {
 
@@ -23,10 +25,21 @@ public class addDataWidnow {
 		frmAddDataManager = new JFrame();
 		frmAddDataManager.setTitle("Add data manager");
 		getFrame().setBounds(100, 100, 647, 418);
-		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAddDataManager.getContentPane().setLayout(null);
 		
 		JButton addDistrictButton = new JButton("Add new District");
+		addDistrictButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					addDistrictWindow window = new addDistrictWindow();
+					window.getFrame().setVisible(true);
+				} catch (Exception x) {
+					x.printStackTrace();
+				}
+			}
+		});
 		addDistrictButton.setBounds(36, 156, 149, 51);
 		frmAddDataManager.getContentPane().add(addDistrictButton);
 		

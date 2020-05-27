@@ -29,7 +29,7 @@ public class dataManager {
 		frmDataManager = new JFrame();
 		frmDataManager.setTitle("Data Manager");
 		getFrame().setBounds(100, 100, 696, 458);
-		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmDataManager.getContentPane().setLayout(null);
 		
 		JButton addDataButton = new JButton("Add Data");

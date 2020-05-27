@@ -1,0 +1,16 @@
+{
+  "districts": [
+    {
+      "districtName": "Ochojce",
+      "districtId": 1
+    },
+    {
+      "districtName": "Pioiro",
+      "districtId": 2
+    },
+    {
+      "districtName": "Miko",
+      "districtId": 3
+    }
+  ]
+}

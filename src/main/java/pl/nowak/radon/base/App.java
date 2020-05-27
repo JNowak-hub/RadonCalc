@@ -3,6 +3,7 @@ package pl.nowak.radon.base;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -11,9 +12,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.JsonObject;
 
 import converter.JsonConverter;
+import converter.districtConverter.DistrictStoreJsonConverter;
 import converter.locationConverter.LocationJsonConverter;
 import converter.locationConverter.LocationStoreJsonConverter;
 import pl.nowak.radon.base.models.district.District;
+import pl.nowak.radon.base.models.district.DistrictStore;
 import pl.nowak.radon.base.models.geologicalformation.GeologicalFormation;
 import pl.nowak.radon.base.models.location.Location;
 import pl.nowak.radon.base.models.location.LocationStore;
@@ -28,7 +31,6 @@ public class App {
 	public static void main(String[] args) {
 		
 		
-		
 		try {
 			MainMenu2 window = new MainMenu2();
 			window.getFrame().setVisible(true);
@@ -37,7 +39,20 @@ public class App {
 			e.printStackTrace();
 		}
 		
+
 		
+//		DistrictStore s = new DistrictStore();
+//		
+//		District one = new District("Ochojce",1);
+//		District two = new District("Pioiro",2);
+//		District three = new District("Miko",3);
+//		
+//		s.addDistrict(one);
+//		s.addDistrict(two);
+//		s.addDistrict(three);
+//		
+//		DistrictStoreJsonConverter c = new DistrictStoreJsonConverter("Districts");
+//		c.toJson(s);
 //		LocationStore s = new LocationStore();
 //
 //		Location location = new Location("Katowice", "Krótka 32", 442, 12);
@@ -58,6 +73,9 @@ public class App {
 //		s.addLocation(location2);
 //		s.addLocation(location3);
 //
+//		System.out.println(s.getLocations().toArray().toString());
+
+		
 //		LocationStoreJsonConverter converter = new LocationStoreJsonConverter("test2");
 //		converter.toJson(s);
 	}
