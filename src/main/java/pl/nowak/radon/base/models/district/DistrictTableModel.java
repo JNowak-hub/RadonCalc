@@ -2,6 +2,7 @@ package pl.nowak.radon.base.models.district;
 
 import java.util.Optional;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import converter.districtConverter.DistrictStoreJsonConverter;
@@ -11,6 +12,7 @@ public class DistrictTableModel extends AbstractTableModel {
 	
 	private String[] columnsNames = {"Id","District Name"};
 	private DistrictStore store;
+	private JTable table;
 		
 	
 	public Object[][] GetDistrictData(DistrictStore store){
@@ -22,6 +24,10 @@ public class DistrictTableModel extends AbstractTableModel {
 		}
 		
 		return rowData;
+	}
+	
+	public void addRow(String districtName, int districtId, JTable table) {
+		table.add(table, new Object[] {districtId,districtName}, -1);
 	}
 
 	public String[] getColumnsNames() {

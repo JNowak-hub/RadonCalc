@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import converter.districtConverter.DistrictJsonConverter;
@@ -36,8 +37,9 @@ import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.JScrollPane;
 
-public class addDistrictWindow {
+public class AddDistrictWindow {
 
 	private JFrame frame;
 	private JTextField districtNameText;
@@ -49,10 +51,7 @@ public class addDistrictWindow {
 	/**
 	 * Create the application.
 	 */
-	public addDistrictWindow() {
-		chooser = new JFileChooser();
-		chooser.showOpenDialog(frame);
-		store = (DistrictStore) new DistrictStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
+	public AddDistrictWindow() {
 		initialize();
 	}
 
@@ -60,6 +59,10 @@ public class addDistrictWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		chooser = new JFileChooser();
+		chooser.showOpenDialog(frame);
+		store = (DistrictStore) new DistrictStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
+		
 		frame = new JFrame();
 		getFrame().setBounds(100, 100, 619, 362);
 		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,29 +147,37 @@ public class addDistrictWindow {
 		frame.getContentPane().add(txtEnterDistrictId);
 		txtEnterDistrictId.setColumns(10);
 
-		JButton addDistrictBtt = new JButton("Add District");
-		addDistrictBtt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				store.addDistrict(new District(districtNameText.getText(), Integer.parseInt(txtpnEnterDistrictId.getText())));
-				districtNameText.setText("");
-				txtpnEnterDistrictId.setText("");
-			}
-		});
-		addDistrictBtt.setBounds(10, 201, 136, 50);
-		frame.getContentPane().add(addDistrictBtt);
 		
 		
-		Object[] columnsNames = {"District ID", "District Name"};
-		DistrictTableModel model = new DistrictTableModel(store);
-		tableDistricts = new JTable(model.GetDistrictData(store), model.getColumnsNames());
+		final DistrictTableModel model = new DistrictTableModel(store);
+		final DefaultTableModel dtm = new DefaultTableModel(model.GetDistrictData(store), model.getColumnsNames());
+		dtm.setColumnIdentifiers(model.getColumnsNames());
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, Color.CYAN, Color.GREEN, Color.ORANGE, Color.RED));
+		scrollPane.setBounds(275, 11, 239, 212);
+		frame.getContentPane().add(scrollPane);
+		tableDistricts = new JTable();
+		scrollPane.setViewportView(tableDistricts);
+		tableDistricts.setModel(dtm);
 		tableDistricts.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(0, 255, 0), new Color(0, 255, 255), Color.CYAN, Color.MAGENTA));
 		tableDistricts.setFillsViewportHeight(true);
 		tableDistricts.setCellSelectionEnabled(true);
 		tableDistricts.setColumnSelectionAllowed(true);
 		tableDistricts.setEnabled(false);
-		tableDistricts.setBounds(275, 11, 239, 212);
-		
-		frame.getContentPane().add(tableDistricts);
+
+		JButton addDistrictBtt = new JButton("Add District");
+		addDistrictBtt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				store.addDistrict(new District(districtNameText.getText(), Integer.parseInt(txtEnterDistrictId.getText())));
+				dtm.addRow(new Object[] {Integer.parseInt(txtEnterDistrictId.getText()), districtNameText.getText()});
+				districtNameText.setText("");
+				txtEnterDistrictId.setText("");
+				tableDistricts.repaint();
+			}
+		});
+		addDistrictBtt.setBounds(10, 201, 136, 50);
+		frame.getContentPane().add(addDistrictBtt);
 		
 		JButton exitBtt = new JButton("Exit");
 		exitBtt.addActionListener(new ActionListener() {

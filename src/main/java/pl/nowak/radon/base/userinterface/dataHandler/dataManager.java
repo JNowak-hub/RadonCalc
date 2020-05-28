@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import pl.nowak.radon.base.userinterface.dataHandler.addData.addDataWidnow;
+import pl.nowak.radon.base.userinterface.dataHandler.addData.AddDataWidnow;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -36,7 +36,7 @@ public class dataManager {
 		addDataButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					addDataWidnow window = new addDataWidnow();
+					AddDataWidnow window = new AddDataWidnow();
 					window.getFrame().setVisible(true);
 				} catch (Exception x) {
 					JOptionPane.showMessageDialog(frmDataManager, "Cannot open add data manager", "Error", JOptionPane.ERROR_MESSAGE, null);

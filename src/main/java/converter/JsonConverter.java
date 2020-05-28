@@ -1,5 +1,6 @@
 package converter;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,29 +16,34 @@ public abstract class JsonConverter<T> {
 
 	private final String jsonFilename;
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	private final Type type = ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	
-	public JsonConverter(String jsonFilename) {this.jsonFilename = jsonFilename;}
-	
+	private final Type type = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+	public JsonConverter(String jsonFilename) {
+		this.jsonFilename = jsonFilename;
+	}
+
 	public void toJson(final T element) {
-		try(FileWriter fileWriter = new FileWriter(jsonFilename, true)) {
-			if(element == null) {
+		try (FileWriter fileWriter = new FileWriter(jsonFilename, false)) {
+			File delete = new File(jsonFilename);
+			if (delete.exists()) {
+				delete.delete();
+				File jsonFile = new File(jsonFilename);
+			}
+			if (element == null) {
 				throw new NullPointerException("ELEMENT IS EMPTY");
 			}
 			gson.toJson(element, fileWriter);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Optional<Object> fromJson() {
-		try(FileReader fileReader = new FileReader(jsonFilename)){
+		try (FileReader fileReader = new FileReader(jsonFilename)) {
 			return Optional.of(gson.fromJson(fileReader, type));
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return Optional.empty();

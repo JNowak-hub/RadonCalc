@@ -7,14 +7,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class addDataWidnow {
+public class AddDataWidnow {
 
 	private JFrame frmAddDataManager;
 
 	/**
 	 * Create the application.
 	 */
-	public addDataWidnow() {
+	public AddDataWidnow() {
 		initialize();
 	}
 
@@ -33,7 +33,7 @@ public class addDataWidnow {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					addDistrictWindow window = new addDistrictWindow();
+					AddDistrictWindow window = new AddDistrictWindow();
 					window.getFrame().setVisible(true);
 				} catch (Exception x) {
 					x.printStackTrace();
@@ -44,6 +44,16 @@ public class addDataWidnow {
 		frmAddDataManager.getContentPane().add(addDistrictButton);
 		
 		JButton addGeologicalFormationButton = new JButton("Add new Geological Formation");
+		addGeologicalFormationButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					AddGeologicalFormation window = new AddGeologicalFormation();
+					window.getFrame().setVisible(true);
+				} catch (Exception x) {
+					x.printStackTrace();
+				}
+			}
+		});
 		addGeologicalFormationButton.setBounds(233, 156, 177, 51);
 		frmAddDataManager.getContentPane().add(addGeologicalFormationButton);
 		

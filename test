@@ -15,4 +15,23 @@
   },
   "radonConcentration": 442.0,
   "error_Rn": 12.0
-}{}
+}{}{
+  "districts": [
+    {
+      "districtName": "Ochojce",
+      "districtId": 1
+    },
+    {
+      "districtName": "Pioiro",
+      "districtId": 2
+    },
+    {
+      "districtName": "Miko",
+      "districtId": 3
+    },
+    {
+      "districtName": "bdada",
+      "districtId": 321312
+    }
+  ]
+}
