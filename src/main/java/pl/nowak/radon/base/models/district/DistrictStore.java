@@ -28,6 +28,14 @@ public class DistrictStore {
 		}
 		return null;
 	}
+	
+	public String[] getDistrictsNames(){
+		String[] names = new String[districts.size()];
+		for(int i = 0; i < districts.size(); i++) {
+			names[i] = districts.get(i).getDistrictName();
+		}
+		return names;
+	}
 
 	public ArrayList<District> getDistricts() {
 		return districts;
