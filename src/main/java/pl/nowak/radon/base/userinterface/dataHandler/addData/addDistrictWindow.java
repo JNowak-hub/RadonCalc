@@ -157,6 +157,8 @@ public class AddDistrictWindow {
 		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, Color.CYAN, Color.GREEN, Color.ORANGE, Color.RED));
 		scrollPane.setBounds(275, 11, 239, 212);
 		frame.getContentPane().add(scrollPane);
+		
+		
 		tableDistricts = new JTable();
 		scrollPane.setViewportView(tableDistricts);
 		tableDistricts.setModel(dtm);

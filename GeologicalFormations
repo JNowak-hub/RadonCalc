@@ -1,0 +1,52 @@
+{
+  "formations": [
+    {
+      "formationDescription": "pierwsz formacja",
+      "district": {
+        "districtName": "Ochojce",
+        "districtId": 1
+      },
+      "formationId": 1
+    },
+    {
+      "formationDescription": "druga formacja",
+      "district": {
+        "districtName": "Pioiro",
+        "districtId": 2
+      },
+      "formationId": 2
+    },
+    {
+      "formationDescription": "trzecia formacja",
+      "district": {
+        "districtName": "Miko",
+        "districtId": 3
+      },
+      "formationId": 3
+    },
+    {
+      "formationDescription": "czwarta formacja",
+      "district": {
+        "districtName": "32131",
+        "districtId": 4424
+      },
+      "formationId": 4
+    },
+    {
+      "formationDescription": "piąta formacja",
+      "district": {
+        "districtName": "Ochojce",
+        "districtId": 1
+      },
+      "formationId": 5
+    },
+    {
+      "formationDescription": "szósta formacja",
+      "district": {
+        "districtName": "Miko",
+        "districtId": 3
+      },
+      "formationId": 6
+    }
+  ]
+}

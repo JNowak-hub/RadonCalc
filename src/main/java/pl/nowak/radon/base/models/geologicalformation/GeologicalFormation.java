@@ -21,6 +21,30 @@ public class GeologicalFormation {
 		this.formationId = formationId;
 	}
 
+	public String getFormationDescription() {
+		return formationDescription;
+	}
+
+	public void setFormationDescription(String formationDescription) {
+		this.formationDescription = formationDescription;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public int getFormationId() {
+		return formationId;
+	}
+
+	public void setFormationId(int formationId) {
+		this.formationId = formationId;
+	}
+
 	@Override
 	public String toString() {
 		return "GeologicalFormation [formationDescription=" + formationDescription + ", district=" + district

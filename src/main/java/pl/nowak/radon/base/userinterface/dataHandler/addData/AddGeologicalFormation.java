@@ -1,48 +1,50 @@
 package pl.nowak.radon.base.userinterface.dataHandler.addData;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import converter.districtConverter.DistrictStoreJsonConverter;
-import pl.nowak.radon.base.models.district.DistrictStore;
-
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import converter.districtConverter.DistrictStoreJsonConverter;
+import converter.geologicalFormationConverter.GeologicalFormationStoreJsonConverter;
+import pl.nowak.radon.base.models.district.DistrictStore;
+import pl.nowak.radon.base.models.geologicalformation.GeologicalFormationStore;
+import pl.nowak.radon.base.models.geologicalformation.GeologicalFormationTableModel;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class AddGeologicalFormation {
 
 	private JFrame frame;
-	private JTable table;
-	private JTextField geologicalForamtionDescription;
-	private JTextField geologicalFormationId;
-	private DistrictStore districtStore;	
+	private JTable geologicalFormationTable;
 	private JFileChooser chooser;
+	private GeologicalFormationStore store;
+	private DistrictStore districtStore;
+	private JTextField geologicalFormationIdTextField;
 
-
-	/**
-	 * Create the application.
-	 */
 	public AddGeologicalFormation() {
 		initialize();
 	}
@@ -51,47 +53,61 @@ public class AddGeologicalFormation {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-//		chooser = new JFileChooser();
-//		chooser.showOpenDialog(frame);
-//		districtStore = (DistrictStore) new DistrictStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
-//		
-		
+		chooser = new JFileChooser();
+		chooser.showOpenDialog(frame);
+		store = (GeologicalFormationStore) new GeologicalFormationStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 626, 429);
+		frame.setBounds(100, 100, 640, 501);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(310, 23, 261, 293);
+		scrollPane.setBounds(312, 11, 302, 291);
 		frame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setForeground(new Color(124, 252, 0));
-		table.setBackground(Color.CYAN);
-		scrollPane.setViewportView(table);
 		
-		JLabel lblNewLabel = new JLabel("Insert Geological Foramtion description");
-		lblNewLabel.setBounds(10, 11, 202, 28);
-		frame.getContentPane().add(lblNewLabel);
+		final GeologicalFormationTableModel model = new GeologicalFormationTableModel(store);
+		final DefaultTableModel dtm = new DefaultTableModel(model.GetGeologicalFormationtData(store), model.getColumnsNames());
+		dtm.setColumnIdentifiers(model.getColumnsNames());
+		geologicalFormationTable = new JTable();
+		geologicalFormationTable.setEnabled(false);
+		geologicalFormationTable.setModel(dtm);
+		geologicalFormationTable.setBackground(SystemColor.controlHighlight);
+		geologicalFormationTable.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLUE, Color.CYAN, Color.GREEN, Color.ORANGE));
+		geologicalFormationTable.setForeground(SystemColor.desktop);
+		geologicalFormationTable.setFillsViewportHeight(true);
+		geologicalFormationTable.setCellSelectionEnabled(true);
+		geologicalFormationTable.setColumnSelectionAllowed(true);
+		scrollPane.setViewportView(geologicalFormationTable);
 		
-		geologicalForamtionDescription = new JTextField();
-		geologicalForamtionDescription.setBounds(10, 50, 202, 68);
-		frame.getContentPane().add(geologicalForamtionDescription);
-		geologicalForamtionDescription.setColumns(10);
+		JLabel addFormationDescriptionLabel = new JLabel("Add Geological Formation Description");
+		addFormationDescriptionLabel.setBounds(10, 98, 182, 25);
+		frame.getContentPane().add(addFormationDescriptionLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Insert Geological Foramation ID");
-		lblNewLabel_1.setBounds(10, 129, 202, 28);
-		frame.getContentPane().add(lblNewLabel_1);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 134, 182, 67);
+		frame.getContentPane().add(scrollPane_1);
 		
-		geologicalFormationId = new JTextField();
-		geologicalFormationId.addMouseListener(new MouseAdapter() {
+		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		scrollPane_1.setViewportView(textArea);
+		
+		JLabel lblAddGeologicalFormation = new JLabel("Add Geological Formation Id");
+		lblAddGeologicalFormation.setBounds(10, 18, 182, 25);
+		frame.getContentPane().add(lblAddGeologicalFormation);
+		
+		geologicalFormationIdTextField = new JTextField();
+		geologicalFormationIdTextField.setBounds(10, 54, 86, 20);
+		frame.getContentPane().add(geologicalFormationIdTextField);
+		geologicalFormationIdTextField.setColumns(10);
+		geologicalFormationIdTextField.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				geologicalFormationId.setText("");
+				geologicalFormationIdTextField.setText("");
 			}
 		});
 
-		geologicalFormationId.addKeyListener(new KeyAdapter() {
+		geologicalFormationIdTextField.addKeyListener(new KeyAdapter() {
 			private boolean number(char zn) {
 				if (zn >= '0' && zn <= '9')
 					return true;
@@ -129,47 +145,40 @@ public class AddGeologicalFormation {
 				}
 			}
 		});
-		geologicalFormationId.setBounds(10, 168, 86, 20);
-		frame.getContentPane().add(geologicalFormationId);
-		geologicalFormationId.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Select District");
-		lblNewLabel_2.setBounds(10, 199, 202, 28);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lblChooseDistrict = new JLabel("Choose district data base");
+		lblChooseDistrict.setBounds(10, 224, 182, 25);
+		frame.getContentPane().add(lblChooseDistrict);
 		
-		JComboBox districtComboBox = new JComboBox(districtStore.getDistrictsNames());
-		districtComboBox.setForeground(Color.WHITE);
-		districtComboBox.setBackground(Color.LIGHT_GRAY);
-		districtComboBox.setBounds(10, 238, 202, 22);
-		frame.getContentPane().add(districtComboBox);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Yes, exit", "No, stay"};
-				int i = JOptionPane.showOptionDialog(frame,
-						"Do you really want to exit ? \n" + 
-				"All unsaved changes will be lost", "Do you want to exit?",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-				if(i == 0)
-					frame.dispose();
-			}
-		});
-		btnExit.setBounds(482, 341, 118, 38);
-		frame.getContentPane().add(btnExit);
+
 
 		
-		JButton btnAddFormation = new JButton("Add Formation");
-		btnAddFormation.setBounds(7, 293, 118, 38);
-		frame.getContentPane().add(btnAddFormation);
+		JLabel lblChooseDistrict_1 = new JLabel("Choose District");
+		lblChooseDistrict_1.setBounds(10, 296, 182, 25);
+		frame.getContentPane().add(lblChooseDistrict_1);
 		
-		JButton btnAddToDataBase = new JButton("Add to database");
-		btnAddToDataBase.setBounds(10, 341, 115, 38);
-		frame.getContentPane().add(btnAddToDataBase);
+		JComboBox districtsComboBox = new JComboBox();
+		districtsComboBox.setBounds(10, 332, 182, 22);
+		frame.getContentPane().add(districtsComboBox);
+		
+		
+		JButton btnChooseDataBase = new JButton("Choose Data Base");
+		btnChooseDataBase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(frame);
+				districtStore = (DistrictStore) new DistrictStoreJsonConverter(chooser.getSelectedFile().getAbsolutePath()).fromJson().get();
+
+			}
+		});
+		btnChooseDataBase.setBackground(SystemColor.activeCaption);
+		btnChooseDataBase.setBounds(7, 260, 185, 25);
+		frame.getContentPane().add(btnChooseDataBase);
+
 	}
 
 	public Window getFrame() {
 		// TODO Auto-generated method stub
-		return null;
+		return frame;
 	}
 }

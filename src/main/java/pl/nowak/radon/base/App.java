@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Optional;
 
+import javax.swing.JFileChooser;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,11 +15,13 @@ import com.google.gson.JsonObject;
 
 import converter.JsonConverter;
 import converter.districtConverter.DistrictStoreJsonConverter;
+import converter.geologicalFormationConverter.GeologicalFormationStoreJsonConverter;
 import converter.locationConverter.LocationJsonConverter;
 import converter.locationConverter.LocationStoreJsonConverter;
 import pl.nowak.radon.base.models.district.District;
 import pl.nowak.radon.base.models.district.DistrictStore;
 import pl.nowak.radon.base.models.geologicalformation.GeologicalFormation;
+import pl.nowak.radon.base.models.geologicalformation.GeologicalFormationStore;
 import pl.nowak.radon.base.models.location.Location;
 import pl.nowak.radon.base.models.location.LocationStore;
 import pl.nowak.radon.base.userinterface.mainmenu.MainMenu;
@@ -38,8 +42,31 @@ public class App {
 			
 			e.printStackTrace();
 		}
-		
 
+		
+		
+		
+/*
+ *  					TEST OF JSON Converter
+ */
+		
+//
+//		GeologicalFormationStore s = new GeologicalFormationStore();
+//		DistrictStoreJsonConverter c = new DistrictStoreJsonConverter("C:\\Users\\nowak\\OneDrive\\Dokumenty\\EclipseProjects\\base\\Districts");
+//		GeologicalFormationStoreJsonConverter gc = new GeologicalFormationStoreJsonConverter("GeologicalFormations");
+//		System.out.println(((DistrictStore)c.fromJson().get()).getDistricts().get(0).toString());
+//		
+//		GeologicalFormation f = new GeologicalFormation("pierwsz formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(0) ,1);
+//		System.out.println(f.toString());
+//				
+//		s.addFormation(f);
+//		s.addFormation(new GeologicalFormation("druga formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(1) ,2));
+//		s.addFormation(new GeologicalFormation("trzecia formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(2) ,3));
+//		s.addFormation(new GeologicalFormation("czwarta formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(3) ,4));
+//		s.addFormation(new GeologicalFormation("piąta formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(0) ,5));
+//		s.addFormation(new GeologicalFormation("szósta formacja", ((DistrictStore)c.fromJson().get()).getDistricts().get(2) ,6));
+//
+//		gc.toJson(s);
 		
 //		DistrictStore s = new DistrictStore();
 //		
